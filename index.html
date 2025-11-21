@@ -9,19 +9,18 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
             color: #333;
-            line-height: 1.6;
         }
         header {
-            background-color: #111;
+            background-color: #1a1a1a;
             color: #fff;
             text-align: center;
-            padding: 3rem 1rem 2rem;
+            padding: 2rem 1rem;
         }
         header h1 {
             margin: 0.5rem 0;
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
         header p {
             margin: 0;
@@ -30,59 +29,42 @@
         section {
             max-width: 900px;
             margin: 2rem auto;
-            padding: 2rem 1rem;
+            padding: 1rem;
             background-color: #fff;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
         }
         section h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            color: #111;
-        }
-        video {
-            width: 100%;
-            max-height: 600px;
             margin-bottom: 1rem;
-            border-radius: 12px;
-            background-color: #000;
+        }
+        iframe {
+            width: 100%;
+            max-height: 500px;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: none;
         }
         .tarifs {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
+            justify-content: space-around;
         }
         .tarif {
             flex: 1 1 250px;
-            padding: 1.5rem;
+            margin: 1rem;
+            padding: 1rem;
             background-color: #eaeaea;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .tarif:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        .tarif h3 {
-            margin-bottom: 1rem;
-            color: #111;
-        }
-        .tarif p {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #444;
         }
         footer {
             text-align: center;
             padding: 2rem 1rem;
-            background-color: #111;
+            background-color: #1a1a1a;
             color: #fff;
-            font-size: 1.1rem;
         }
-        footer a.phone {
+        a.phone {
             color: #ffd700;
             text-decoration: none;
             font-weight: bold;
@@ -99,26 +81,17 @@
 <section id="presentation">
     <h2>Présentation</h2>
     <p>Voici une vidéo de présentation de notre travail et de ce que nous savons faire :</p>
-    <video controls autoplay muted>
-        <source src="https://drive.google.com/uc?export=download&id=1D9ulvn0eaoYqwuN9Tcc2ZcOdZlZ7kLMO" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture vidéo.
-    </video>
+    <iframe src="https://drive.google.com/file/d/1D9ulvn0eaoYqwuN9Tcc2ZcOdZlZ7kLMO/preview" allow="autoplay" allowfullscreen></iframe>
 </section>
 
 <section id="video-horizontale">
     <h2>Exemple de vidéo horizontale</h2>
-    <video controls autoplay muted>
-        <source src="https://drive.google.com/uc?export=download&id=1IResU2g8GDBeZ_ZhDGnB90k91WuviLNL" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture vidéo.
-    </video>
+    <iframe src="https://drive.google.com/file/d/1IResU2g8GDBeZ_ZhDGnB90k91WuviLNL/preview" allow="autoplay" allowfullscreen></iframe>
 </section>
 
 <section id="video-verticale">
     <h2>Exemple de vidéo verticale</h2>
-    <video controls autoplay muted>
-        <source src="https://drive.google.com/uc?export=download&id=16wolSu-VB1xcpHK3HHwLpt_EXE6v2vKO" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture vidéo.
-    </video>
+    <iframe src="https://drive.google.com/file/d/16wolSu-VB1xcpHK3HHwLpt_EXE6v2vKO/preview" allow="autoplay" allowfullscreen></iframe>
 </section>
 
 <section id="tarifs">
