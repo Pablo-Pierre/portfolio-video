@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P&L Studio - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin:0; padding:0; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #121212;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #bbb;
+            font-size: 1.2rem;
+        }
+
+        section {
+            padding: 3rem 1rem;
+            width: 90%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            border-radius: 15px;
+            background-color: #1e1e1e;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #ff6f61;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        video {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .vertical-video video {
+            max-height: 600px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .team-member {
+            background: #222;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .team-member h3 { color:#ff6f61; margin-bottom:0.5rem; }
+
+        .pricing {
+            text-align: center;
+        }
+
+        .pricing table {
+            margin: 1rem auto;
+            border-collapse: collapse;
+        }
+
+        .pricing th, .pricing td {
+            border: 1px solid #555;
+            padding: 0.8rem 1.2rem;
+        }
+
+        .pricing th {
+            background-color: #333;
+        }
+
+        .pricing td {
+            background-color: #222;
+        }
+
+        .contact {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #ff6f61;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #222;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>P&amp;L Studio</h1>
+    <p>Monteurs vidéo freelance – Pablo et Liam de Polytech Nantes</p>
+</header>
+
+<!-- Section Présentation -->
+<section id="presentation">
+    <h2>Présentation</h2>
+    <div class="video-container">
+        <video src="video1.mp4" controls autoplay muted></video>
+    </div>
+    <p style="text-align:center; margin-top:1rem;">
+        Nous sommes Pablo et Liam, étudiants à Polytech Nantes, passionnés par le montage vidéo et les contenus digitaux. Nous créons des vidéos dynamiques adaptées aux réseaux sociaux et projets sportifs.
+    </p>
+</section>
+
+<!-- Section Vidéo horizontale -->
+<section id="video-horizontal">
+    <h2>Exemple de vidéo horizontale</h2>
+    <div class="video-container">
+        <video src="video2.mp4" controls></video>
+    </div>
+    <p style="text-align:center; margin-top:1rem;">
+        Exemple de vidéo horizontale, optimisée pour YouTube et présentations classiques.
+    </p>
+</section>
+
+<!-- Section Vidéo verticale -->
+<section id="video-vertical" class="vertical-video">
+    <h2>Exemple de vidéo verticale</h2>
+    <div class="video-container">
+        <video src="video3.mov" controls></video>
+    </div>
+    <p style="text-align:center; margin-top:1rem;">
+        Exemple de vidéo verticale, idéale pour TikTok et Instagram Reels avec un montage rythmé et des transitions accrocheuses.
+    </p>
+</section>
+
+<!-- Section Équipe -->
+<section id="team">
+    <h2>Notre Équipe</h2>
+    <div class="team">
+        <div class="team-member">
+            <h3>Pablo</h3>
+            <p>Montage, habillages, storytelling, relation client</p>
+        </div>
+        <div class="team-member">
+            <h3>Liam</h3>
+            <p>Dérushage, vérification qualité, gestion des assets et support montage</p>
+        </div>
+    </div>
+</section>
+
+<!-- Section Tarifs -->
+<section id="tarifs">
+    <h2>Nos Tarifs</h2>
+    <div class="pricing">
+        <table>
+            <tr>
+                <th>Type de prestation</th>
+                <th>Durée / vidéo</th>
+                <th>Tarif (€)</th>
+            </tr>
+            <tr>
+                <td>Vidéo courte (TikTok / Reels)</td>
+                <td>0-60 sec</td>
+                <td>25 €</td>
+            </tr>
+            <tr>
+                <td>Vidéo horizontale (YouTube / montage classique)</td>
+                <td>1-5 min</td>
+                <td>50-80 €</td>
+            </tr>
+            <tr>
+                <td>Vidéo longue ou montage complexe</td>
+                <td>5-10 min</td>
+                <td>100 €</td>
+            </tr>
+            <tr>
+                <td>Pack mensuel (x4 vidéos courtes)</td>
+                <td>Variable</td>
+                <td>90 €</td>
+            </tr>
+        </table>
+        <p style="margin-top:1rem;">Les tarifs sont indicatifs et peuvent varier selon la complexité du projet.</p>
+    </div>
+</section>
+
+<!-- Section Contact -->
+<section id="contact">
+    <h2>Contactez-nous</h2>
+    <p class="contact">N'hésitez pas à nous appeler au <strong>07 69 03 07 97</strong> pour discuter de votre projet ensemble !</p>
+</section>
+
+<footer>
+    © 2025 P&amp;L Studio - Pablo &amp; Liam - Tous droits réservés
+</footer>
+
+</body>
+</html>
