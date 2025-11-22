@@ -2,119 +2,167 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P&L Studio - Portfolio</title>
+    <title>Stats de Tir Pétanque</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #1a1a1a;
-            color: #fff;
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        header h1 {
-            margin: 0.5rem 0;
-            font-size: 2.5rem;
-        }
-        header p {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-        section {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        section h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        iframe {
-            width: 100%;
-            max-height: 500px;
-            margin-bottom: 1rem;
+        body { font-family: Arial; margin: 20px; background: #f7f7f7; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 10px 0; }
+        button { padding: 12px; width: 100%; background: #2c82f4; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 5px; }
+        button:hover { background: #1b5ec4; }
+        h2 { text-align: center; }
+        .stats-box {
+            background: #eef5ff;
+            padding: 15px;
+            margin-top: 20px;
             border-radius: 8px;
-            border: none;
-        }
-        .tarifs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .tarif {
-            flex: 1 1 250px;
-            margin: 1rem;
-            padding: 1rem;
-            background-color: #eaeaea;
-            border-radius: 10px;
             text-align: center;
+            font-size: 18px;
         }
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: #1a1a1a;
-            color: #fff;
+        .stat-line { margin: 8px 0; }
+        .reset-btn {
+            background: #d9534f;
+            margin-top: 10px;
         }
-        a.phone {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
+        .reset-btn:hover {
+            background: #b52b27;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>P&L Studio</h1>
-    <p>Deux étudiants de Polytech Nantes passionnés par le montage vidéo</p>
-</header>
+<div class="container">
+    <h2>📈 Progression des tirs</h2>
 
-<section id="presentation">
-    <h2>Présentation</h2>
-    <p>Voici une vidéo de présentation de notre travail et de ce que nous savons faire :</p>
-    <iframe src="https://drive.google.com/file/d/1D9ulvn0eaoYqwuN9Tcc2ZcOdZlZ7kLMO/preview" allow="autoplay" allowfullscreen></iframe>
-</section>
+    <!-- Date -->
+    <label>Date de la séance :</label>
+    <input id="date" type="date">
 
-<section id="video-horizontale">
-    <h2>Exemple de vidéo horizontale</h2>
-    <iframe src="https://drive.google.com/file/d/1IResU2g8GDBeZ_ZhDGnB90k91WuviLNL/preview" allow="autoplay" allowfullscreen></iframe>
-</section>
+    <!-- Inputs -->
+    <label>Tirs tentés :</label>
+    <input id="tentes" type="number" placeholder="ex : 20">
 
-<section id="video-verticale">
-    <h2>Exemple de vidéo verticale</h2>
-    <iframe src="https://drive.google.com/file/d/16wolSu-VB1xcpHK3HHwLpt_EXE6v2vKO/preview" allow="autoplay" allowfullscreen></iframe>
-</section>
+    <label>Tirs réussis :</label>
+    <input id="reussis" type="number" placeholder="ex : 12">
 
-<section id="tarifs">
-    <h2>Nos tarifs</h2>
-    <div class="tarifs">
-        <div class="tarif">
-            <h3>Montage simple</h3>
-            <p>50€ / vidéo</p>
-        </div>
-        <div class="tarif">
-            <h3>Montage avec habillages et transitions</h3>
-            <p>80€ / vidéo</p>
-        </div>
-        <div class="tarif">
-            <h3>Pack complet (3 vidéos)</h3>
-            <p>200€</p>
-        </div>
+    <button onclick="ajouterSeance()">Ajouter la séance</button>
+
+    <!-- Bouton reset -->
+    <button class="reset-btn" onclick="resetStats()">Réinitialiser les stats</button>
+
+    <!-- Stats -->
+    <div class="stats-box">
+        <div class="stat-line"><b>Moyenne du jour :</b> <span id="moyJour">-</span>%</div>
+        <div class="stat-line"><b>Moyenne générale :</b> <span id="moyTotale">-</span>%</div>
     </div>
-</section>
 
-<footer>
-    <p>Pour discuter de votre projet, n’hésitez pas à nous appeler : <a class="phone" href="tel:+33769030797">07 69 03 07 97</a></p>
-</footer>
+    <canvas id="graphique" style="margin-top: 40px;"></canvas>
+</div>
+
+<script>
+    // Charger stats depuis localStorage
+    let donnees = JSON.parse(localStorage.getItem("statsTir")) || [];
+
+    function majMoyennes() {
+        if (donnees.length === 0) {
+            document.getElementById("moyJour").innerText = "-";
+            document.getElementById("moyTotale").innerText = "-";
+            return;
+        }
+
+        const dateChoisie = document.getElementById("date").value;
+
+        // Moyenne totale
+        const totalPercent = donnees.reduce((sum, s) => sum + s.pourcentage, 0);
+        const moyTotale = Math.round(totalPercent / donnees.length);
+        document.getElementById("moyTotale").innerText = moyTotale;
+
+        // Moyenne du jour sélectionné
+        if (dateChoisie) {
+            const seancesDuJour = donnees.filter(s => s.date === dateChoisie);
+            if (seancesDuJour.length > 0) {
+                const moyJour = Math.round(
+                    seancesDuJour.reduce((sum, s) => sum + s.pourcentage, 0) / seancesDuJour.length
+                );
+                document.getElementById("moyJour").innerText = moyJour;
+            } else {
+                document.getElementById("moyJour").innerText = "-";
+            }
+        } else {
+            document.getElementById("moyJour").innerText = "-";
+        }
+    }
+
+    // Création du graphique
+    const ctx = document.getElementById('graphique');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: donnees.map(s => s.date),
+            datasets: [{
+                label: "Pourcentage de réussite (%)",
+                data: donnees.map(s => s.pourcentage),
+                borderWidth: 2
+            }]
+        }
+    });
+
+    // Mise à jour des moyennes si on change la date
+    document.getElementById("date").addEventListener("change", majMoyennes);
+
+    function ajouterSeance() {
+        const tentes = parseInt(document.getElementById("tentes").value);
+        const reussis = parseInt(document.getElementById("reussis").value);
+        const dateInput = document.getElementById("date").value;
+
+        if (isNaN(tentes) || isNaN(reussis)) {
+            alert("Remplis les valeurs de tirs !");
+            return;
+        }
+        if (reussis > tentes) {
+            alert("Les tirs réussis ne peuvent pas dépasser les tirs tentés.");
+            return;
+        }
+
+        // Date automatique si rien rempli
+        const today = new Date().toISOString().split("T")[0];
+        const date = dateInput || today;
+
+        const pourcentage = Math.round((reussis / tentes) * 100);
+
+        // Ajouter séance
+        donnees.push({ date, tentes, reussis, pourcentage });
+
+        // Sauvegarde
+        localStorage.setItem("statsTir", JSON.stringify(donnees));
+
+        // Mise à jour du graph
+        chart.data.labels.push(date);
+        chart.data.datasets[0].data.push(pourcentage);
+        chart.update();
+
+        // Réinitialisation
+        document.getElementById("tentes").value = "";
+        document.getElementById("reussis").value = "";
+
+        majMoyennes();
+    }
+
+    // 🔥 Fonction RESET
+    function resetStats() {
+        if (confirm("Voulez-vous vraiment réinitialiser toutes les stats ?")) {
+            localStorage.removeItem("statsTir");
+            donnees = [];
+            chart.data.labels = [];
+            chart.data.datasets[0].data = [];
+            chart.update();
+            majMoyennes();
+        }
+    }
+
+    // Calcul initial des moyennes
+    majMoyennes();
+</script>
 
 </body>
 </html>
